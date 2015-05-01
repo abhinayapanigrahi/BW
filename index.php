@@ -12,7 +12,7 @@
 		<?php include("include/header.php"); ?>
 	</div>
 	<div class="contentwrapper">
-		<?php include("cities.php"); ?>
+		<?php include("area.php"); ?>
 	</div>
 	<div class="footer">
 			<?php include("include/footer.php"); ?>
