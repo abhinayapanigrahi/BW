@@ -26,24 +26,21 @@
 					<label for="selectCity">City List</label>
 				</div>
 				<div class="formRow">
+					<?php 
+					
+					$objCityProc = new citiesProcessor();
+					$arrayCityList  = array();
+
+					$resCityList = $objCityProc->getAllCities($arrDBTaskManagement);
+
+					?>
 					<select id="selectCity" name="selectcity" onchange="">		
 					<option value="">Select City</option>	
 					<?php  
-										
-					$objCityProc = new citiesProcessor();
-					/*$resCityList = $objCityProc->getAllCities($arrDBTaskManagement);
-					echo $arrDBTaskManagement;*/
-					$arrayCityList = array();
-					//unset($arrDBTaskManagement['getArr']);
-					$resCityList = $objCityProc->getAllCities($arrDBTaskManagement);
-					//while($objCityList = mysql_fetch_object($resCityList)){
-					foreach ($resCityList as $key => $value) {
-						# code...
-					
-					//array_push($arrayCityList,array("city_id"=>$objCityList->city_id,"city"=>$objCityList->city));
+					while($objCityList = mysql_fetch_object($resCityList)){
+					array_push($arrayCityList, $objCityList);
 					?>			
-						<!-- <option value="<?php echo $objCityList->city_id; ?>"><?php echo $objCityList->city; ?></option> -->
-						<option value="<?php echo $value['city_id']; ?>"><?php echo $value['city']; ?></option>
+						<option value="<?php echo $objCityList->city_id; ?>"><?php echo $objCityList->city; ?></option>
 					<?php 	
 					}
 					?>
@@ -72,13 +69,13 @@
 	<?php
 		$objArea = new areasProcessor();
 		$arrDBTaskManagement["getArr"] = 1;
+
 		$arrayArea = $objArea->getAllAreas($arrDBTaskManagement);
 		
-		
-		//$arrAreaCityJSON = array("cityList"=>$arrayCityList,"areaList"=>$arrayArea);
-		$arrAreaCityJSON = array("cityList"=>$resCityList,"areaList"=>$arrayArea);
+		$arrAreaCityJSON = array("cityList"=>$arrayCityList,"areaList"=>$arrayArea);
 	?>
-	<div class="hidden"><script>
+	<div class="hidden">
+		<script>
 		var areaListJSON = <?php echo json_encode($arrAreaCityJSON); ?>;
 		console.log(areaListJSON);
 		

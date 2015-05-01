@@ -26,24 +26,23 @@
 					<label for="selectState">State List</label>
 				</div>
 				<div class="formRow">
-					<select id="selectState" name="selectstate" onchange="">		
+					<?php
+						$objStateProc = new statesProcessor();
+						/*$resStateList = $objStateProc->getAllStates($arrDBTaskManagement);
+						echo $arrDBTaskManagement;*/
+						$arrayStateList = array();
+						//unset($arrDBTaskManagement['getArr']);
+						$resStateList = $objStateProc->getAllStates($arrDBTaskManagement);
+
+					?>
+					<select id="selectState" name="selectState" onchange="">		
 					<option value="">Select State</option>	
 					<?php  
 										
-					$objStateProc = new statesProcessor();
-					/*$resStateList = $objStateProc->getAllStates($arrDBTaskManagement);
-					echo $arrDBTaskManagement;*/
-					$arrayStateList = array();
-					//unset($arrDBTaskManagement['getArr']);
-					$resStateList = $objStateProc->getAllStates($arrDBTaskManagement);
-					//while($objStateList = mysql_fetch_object($resStateList)){
-					foreach ($resStateList as $key => $value) {
-						# code...
-					
-					//array_push($arrayStateList,array("state_id"=>$objStateList->state_id,"state"=>$objStateList->state));
+					while($objStateList = mysql_fetch_object($resStateList)){
+					array_push($arrayStateList,array("state_id"=>$objStateList->state_id,"state"=>$objStateList->state));
 					?>			
-						<!-- <option value="<?php echo $objStateList->state_id; ?>"><?php echo $objStateList->state; ?></option> -->
-						<option value="<?php echo $value['state_id']; ?>"><?php echo $value['state']; ?></option>
+						<option value="<?php echo $objStateList->state_id; ?>"><?php echo $objStateList->state; ?></option>
 					<?php 	
 					}
 					?>
@@ -75,8 +74,8 @@
 		$arrayCity = $objCity->getAllCities($arrDBTaskManagement);
 		
 		
-		//$arrCityStateJSON = array("stateList"=>$arrayStateList,"cityList"=>$arrayCity);
-		$arrCityStateJSON = array("stateList"=>$resStateList,"cityList"=>$arrayCity);
+		$arrCityStateJSON = array("stateList"=>$arrayStateList,"cityList"=>$arrayCity);
+		//$arrCityStateJSON = array("stateList"=>$resStateList,"cityList"=>$arrayCity);
 	?>
 	<div class="hidden"><script>
 		var cityListJSON = <?php echo json_encode($arrCityStateJSON); ?>;
