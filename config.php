@@ -6,6 +6,12 @@ $arrDBTaskManagement = array("db"=>"db_bawarchiwala","username"=>"root","passwor
 
 define(TABLE_USER_MASTER,"user_master");
 define(TABLE_DESIGNATION,"tbl_designation");
+define(TABLE_COUNTRY_MASTER,"tbl_country");
+define(TABLE_STATE_MASTER,"tbl_state");
+define(TABLE_CITY_MASTER,"tbl_city");
+define(TABLE_AREA_MASTER,"tbl_area");
+
+
 
 
 $messgaes['event_notavailable'] 		= "Currently No Events";
